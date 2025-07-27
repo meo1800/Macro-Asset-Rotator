@@ -29,4 +29,5 @@ def generate_assets_df(tickers):
 
     # Concatenates the data for each ticker into one data frame
     assets = pd.concat(data.values(), axis = 1)
-    return assets.dropna(inplace = True)
+    assets.dropna(inplace = True)
+    return assets
