@@ -16,3 +16,17 @@ def get_asset_data(symbol):
     data.columns = [symbol] 
     data.index = pd.to_datetime(data.index) # Converts index from data strings to date/time objects
     return data.sort_index() 
+
+# Uses list of tickers to return a dataframe of given assets' close prices
+def generate_asset_df(tickers):
+    # Creates dictionary of single column df's for each ticker
+    data = {}
+
+    for symbol in tickers:
+        print(f"Getting data for {symbol}")
+        asset_df = get_asset_data(symbol)
+        data[symbol] = asset_df
+
+    # Concatenates the data for each ticker into one data frame
+    assets = pd.concat(data.values(), axis = 1)
+    return assets.dropna(inplace = True)
