@@ -18,7 +18,7 @@ def get_asset_data(symbol):
     return data.sort_index() 
 
 # Uses list of tickers to return a dataframe of given assets' close prices
-def generate_asset_df(tickers):
+def generate_assets_df(tickers):
     # Creates dictionary of single column df's for each ticker
     data = {}
 
