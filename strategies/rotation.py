@@ -1,6 +1,6 @@
 import pandas as pd
 
-def generate_rotation_strategy(assets, window = 30):
+def generate_rotation_strategy(assets, window = 21):
 
     # Finding rotation single based on return of trailing window
     trailing_returns = assets.pct_change(periods = window)
