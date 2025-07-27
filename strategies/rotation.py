@@ -2,6 +2,8 @@ import pandas as pd
 
 def generate_rotation_strategy(assets, window = 21):
 
+    print("\nGenerating strategy...\n")
+    
     # Finding rotation single based on return of trailing window
     trailing_returns = assets.pct_change(periods = window)
     rotation_signal = trailing_returns.dropna().idxmax(axis = 1)
