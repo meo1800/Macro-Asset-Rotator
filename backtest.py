@@ -11,7 +11,6 @@ tickers = ["SPY", "IEF", "GLD"]
 assets = generate_assets_df(tickers)
 
 # Find strategy returns
-print("\nGenerating strategy...\n")
 strategy_returns = generate_rotation_strategy(assets)
 
 # Find Buy & Hold SPY and equal weighted portfolio returns for comparison
