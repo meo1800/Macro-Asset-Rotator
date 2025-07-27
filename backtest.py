@@ -3,6 +3,7 @@ import pandas as pd
 from data.fetch import generate_assets_df
 from strategies.rotation import generate_rotation_strategy
 from metrics.performance import evaluate_performance
+from visuals.plots import plot_cum_returns
 
 # Defining tickers
 tickers = ["SPY", "IEF", "GLD"]
@@ -23,4 +24,12 @@ print("\nRotation Strategy:\n", evaluate_performance(strategy_returns))
 print("\nBuy & Hold:\n", evaluate_performance(buy_and_hold_returns))
 print("\nEqual Weighted:\n", evaluate_performance(equal_weighted_returns))
 
+# Dictionary of labels and return data
+returns_dict = {
+    "Rotation Strategy": strategy_returns,
+    "Buy & Hold": buy_and_hold_returns,
+    "Equal Weighted": equal_weighted_returns
+}
 
+# Plot returns using returns dictionary
+plot_cum_returns(returns_dict)
