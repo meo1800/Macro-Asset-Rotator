@@ -13,7 +13,7 @@ plt.rcParams.update({
 # Plotting function for cumulative returns
 
 def plot_cum_returns(returns_dict: dict):
-    fig, ax = plt.subplot()
+    fig, ax = plt.subplots()
     for label, returns in returns_dict:
         cum_returns = (1 + returns).cumprod()
         ax.plot(cum_returns, label = label)
