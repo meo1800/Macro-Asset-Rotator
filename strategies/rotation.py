@@ -32,7 +32,7 @@ def generate_rotation_strategy(assets, window = 21, max_delay = 3):
                 raw_return = daily_returns.loc[date, asset] # No slippage (float)
                 slippage_return = apply_slippage(pd.Series([1 + raw_return])).iloc[0] - 1 # Converts float>>list>>series and applies slippage 
                 strategy_returns.append(slippage_return)
-                
+
             except KeyError:
                 continue
 
@@ -40,4 +40,4 @@ def generate_rotation_strategy(assets, window = 21, max_delay = 3):
         strategy_returns = pd.Series(strategy_returns, index = aligned_signal.index)
         decay_results[delay] = strategy_returns
    
-    return strategy_returns
+    return decay_results

@@ -20,7 +20,10 @@ buy_and_hold_returns = assets["SPY"].pct_change().dropna()
 equal_weighted_returns = assets.pct_change().dropna().mean(axis = 1)
 
 # Evaluate performance by finding cumulative return
-print("\nRotation Strategy:\n", evaluate_performance(strategy_returns))
+
+for delay, returns in strategy_returns.items():
+    print(f"\n{delay}d Delay Rotation Strategy:\n", evaluate_performance(returns))
+
 print("\nBuy & Hold:\n", evaluate_performance(buy_and_hold_returns))
 print("\nEqual Weighted:\n", evaluate_performance(equal_weighted_returns))
 
@@ -31,5 +34,7 @@ returns_dict = {
     "Equal Weighted": equal_weighted_returns
 }
 
-# Plot returns using returns dictionary
-plot_cum_returns(returns_dict)
+# # Plot returns using returns dictionary
+# plot_cum_returns(returns_dict)
+
+# print(strategy_returns.describe())
