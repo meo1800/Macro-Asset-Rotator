@@ -26,6 +26,10 @@ def get_asset_data(symbol):
     data = data[['4. close']] # DF becoems just the close column
     data.columns = [symbol] 
     data.index = pd.to_datetime(data.index) # Converts index from data strings to date/time objects
+    
+    # Writes data to ticker's CSV 
+    data.to_csv(filepath)
+    
     return data.sort_index() 
 
 # Uses list of tickers to return a dataframe of given assets' close prices
