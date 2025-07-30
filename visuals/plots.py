@@ -14,7 +14,7 @@ plt.rcParams.update({
 
 def plot_cum_returns(returns_dict: dict):
     fig, ax = plt.subplots()
-    for label, returns in returns_dict:
+    for label, returns in returns_dict.items():
         cum_returns = (1 + returns).cumprod()
         ax.plot(cum_returns, label = label)
 
