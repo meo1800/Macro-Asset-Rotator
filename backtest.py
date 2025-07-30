@@ -28,13 +28,18 @@ print("\nBuy & Hold:\n", evaluate_performance(buy_and_hold_returns))
 print("\nEqual Weighted:\n", evaluate_performance(equal_weighted_returns))
 
 # Dictionary of labels and return data
-returns_dict = {
-    "Rotation Strategy": strategy_returns,
-    "Buy & Hold": buy_and_hold_returns,
-    "Equal Weighted": equal_weighted_returns
-}
+returns_dict = {}
 
-# # Plot returns using returns dictionary
-# plot_cum_returns(returns_dict)
+# Loop through each delay scenario of the strategy returns
+for delay, returns in strategy_returns.items():
+    label = f"{delay}d Delay Rotation Strategy"
+    returns_dict[label] = returns
+
+# For comparison     
+returns_dict["Buy & Hold"] = buy_and_hold_returns
+returns_dict["Equal Weighted"] = equal_weighted_returns
+
+# Plot returns using returns dictionary
+plot_cum_returns(returns_dict)
 
 # print(strategy_returns.describe())
