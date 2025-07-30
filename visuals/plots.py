@@ -27,8 +27,8 @@ def plot_cum_returns(returns_dict: dict):
     ax.set_ylabel("Growth")
     ax.legend()
     fig.tight_layout()
-    
-    os.makedirs("outputs", exist_ok = 0)
+
+    os.makedirs("outputs", exist_ok = True)
     plt.savefig("outputs/strategy_returns.png")
     plt.close()
     
