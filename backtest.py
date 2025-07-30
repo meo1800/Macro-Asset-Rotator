@@ -4,6 +4,7 @@ from data.fetch import generate_assets_df
 from strategies.rotation import generate_rotation_strategy
 from metrics.performance import evaluate_performance
 from visuals.plots import plot_cum_returns
+from utils.backtest_extras import get_base_line_returns
 
 # Defining tickers
 tickers = ["SPY", "IEF", "GLD"]
@@ -16,8 +17,7 @@ assets = generate_assets_df(tickers)
 strategy_returns = generate_rotation_strategy(assets)
 
 # Find Buy & Hold SPY and equal weighted portfolio returns for comparison
-buy_and_hold_returns = assets["SPY"].pct_change().dropna()
-equal_weighted_returns = assets.pct_change().dropna().mean(axis = 1)
+buy_and_hold_returns, equal_weighted_returns = get_base_line_returns(assets)
 
 # Evaluate performance by finding cumulative return
 
