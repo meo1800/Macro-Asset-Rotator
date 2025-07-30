@@ -25,13 +25,23 @@ def generate_rotation_strategy(assets, window = 21, max_delay = 3):
 
         # Calculating the strategy returns based on aligned signal factoring in slippage
         strategy_returns = []
+        current_asset = None 
+
         for date, asset in aligned_signal.items():
 
             # Ensures any NaNs do not cause the entire backtest to fail 
             try:
-                raw_return = daily_returns.loc[date, asset] # No slippage (float)
-                slippage_return = apply_slippage(pd.Series([1 + raw_return])).iloc[0] - 1 # Converts float>>list>>series and applies slippage 
-                strategy_returns.append(slippage_return)
+                # Ensures trading is only done when asset changes and not when held
+                if current_asset is None or asset != current_asset:
+                        
+                    raw_return = daily_returns.loc[date, asset] # No slippage (float)
+                    slippage_return = apply_slippage(pd.Series([1 + raw_return])).iloc[0] - 1 # Converts float>>list>>series and applies slippage 
+                    strategy_returns.append(slippage_return)
+                    current_asset = asset
+                else: 
+                    # Continue holding the same asset (no trades)
+                    held_return = daily_returns.loc[date, current_asset]
+                    strategy_returns.append(held_return)
 
             except KeyError:
                 continue
