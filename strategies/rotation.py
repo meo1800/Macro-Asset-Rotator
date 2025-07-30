@@ -23,6 +23,9 @@ def generate_rotation_strategy(assets, window = 21, max_delay = 3):
         # Ensures that there are not missing dates and that the index is realigned to return data
         aligned_signal = shifted_signal.reindex(daily_returns.index).dropna()
 
+        # # Check for top contributors
+        # print(aligned_signal.value_counts())
+
         # Calculating the strategy returns based on aligned signal factoring in slippage
         strategy_returns = []
         current_asset = None 
