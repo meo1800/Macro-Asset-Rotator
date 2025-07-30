@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import os
 
 #  Standardized plot configuration
 plt.rcParams.update({
@@ -26,5 +27,9 @@ def plot_cum_returns(returns_dict: dict):
     ax.set_ylabel("Growth")
     ax.legend()
     fig.tight_layout()
-    plt.show()
+    
+    os.makedirs("outputs", exist_ok = 0)
+    plt.savefig("outputs/strategy_returns.png")
+    plt.close()
+    
     return fig
