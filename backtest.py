@@ -14,14 +14,14 @@ assets = generate_assets_df(tickers)
 
 # Find strategy returns
 
-strategy_returns = generate_rotation_strategy(assets)
+strategy_results = generate_rotation_strategy(assets)
 
 # Find Buy & Hold SPY and equal weighted portfolio returns for comparison
 buy_and_hold_returns, equal_weighted_returns = get_base_line_returns(assets)
 
 # Evaluate performance by finding cumulative return
 
-for delay, returns in strategy_returns.items():
+for delay, returns in strategy_results.items():
     print(f"\n{delay}d Delay Rotation Strategy:\n", evaluate_performance(returns))
 
 print("\nBuy & Hold:\n", evaluate_performance(buy_and_hold_returns))
@@ -31,7 +31,7 @@ print("\nEqual Weighted:\n", evaluate_performance(equal_weighted_returns))
 returns_dict = {}
 
 # Loop through each delay scenario of the strategy returns
-for delay, returns in strategy_returns.items():
+for delay, returns in strategy_results.items():
     label = f"{delay}d Delay Rotation Strategy"
     returns_dict[label] = returns
 
@@ -42,4 +42,4 @@ returns_dict["Equal Weighted"] = equal_weighted_returns
 # Plot returns using returns dictionary
 plot_cum_returns(returns_dict)
 
-# print(strategy_returns.describe())
+# print(strategy_results.describe())
