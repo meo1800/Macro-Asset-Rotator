@@ -30,19 +30,20 @@ def bl_evaluation_comparison(assets, strategy_results: dict, second_strategy_res
 # Returns dictionary containing strategies and baselines with respective returns
 def total_results_dict(assets, strategy_results: dict, second_strategy_results: dict = None):
     # Dictionary of labels and return data
-    returns_dict = {}
+    results_dict = {}
 
     # Loop through each delay scenario of the strategy results dict
     for delay, returns in strategy_results.items():
         label = f"{delay}d Delay Primary Strategy"
-        returns_dict[label] = returns
+        results_dict[label] = returns
 
     # Allows evaluating an optional second strategy
     if second_strategy_results:
         for delay, returns in second_strategy_results.items():
             label = f"{delay}d Delay Secondary Strategy"
-            returns_dict[label] = returns
+            results_dict[label] = returns
 
     # For comparison     
-    returns_dict["Buy & Hold"] = get_base_line_returns(assets)[0]
-    returns_dict["Equal Weighted"] = get_base_line_returns(assets)[1]
+    results_dict["Buy & Hold"] = get_base_line_returns(assets)[0]
+    results_dict["Equal Weighted"] = get_base_line_returns(assets)[1]
+    return results_dict
