@@ -4,7 +4,7 @@ from data.fetch import generate_assets_df
 from strategies.rotation import generate_rotation_strategy
 from metrics.performance import evaluate_performance
 from visuals.plots import plot_cum_returns
-from utils.backtest_extras import get_base_line_returns
+from utils.backtest_extras import bl_evaluation_comparison
 
 # Defining tickers
 tickers = ["SPY", "IEF", "GLD"]
@@ -13,19 +13,10 @@ tickers = ["SPY", "IEF", "GLD"]
 assets = generate_assets_df(tickers)
 
 # Find strategy returns
+rotation_strategy_results = generate_rotation_strategy(assets)
 
-strategy_results = generate_rotation_strategy(assets)
-
-# Find Buy & Hold SPY and equal weighted portfolio returns for comparison
-buy_and_hold_returns, equal_weighted_returns = get_base_line_returns(assets)
-
-# Evaluate performance by finding cumulative return
-
-for delay, returns in strategy_results.items():
-    print(f"\n{delay}d Delay Rotation Strategy:\n", evaluate_performance(returns))
-
-print("\nBuy & Hold:\n", evaluate_performance(buy_and_hold_returns))
-print("\nEqual Weighted:\n", evaluate_performance(equal_weighted_returns))
+# Evaluates performance of the strategy with each delay scenario with comparison to baseline returns and optio
+bl_evaluation_comparison(rotation_strategy_results, assets)
 
 # Dictionary of labels and return data
 returns_dict = {}
