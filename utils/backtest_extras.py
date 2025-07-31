@@ -10,15 +10,15 @@ def get_base_line_returns(assets):
     return baseline_returns
 
 # Evaluates performance of the strategy with each delay scenario with comparison to baseline returns
-def bl_evaluation_comparison(strategy_returns: dict, assets, second_strategy_returns: dict = None):
+def bl_evaluation_comparison(assets, strategy_results: dict, second_strategy_results: dict = None):
     
     # Iterates through each delay scenario and evaluates
-    for delay, returns in strategy_returns.items():
+    for delay, returns in strategy_results.items():
         print(f"\n{delay}d Delay Primary Strategy:\n", evaluate_performance(returns))
 
     # Allows evaluating an optional second strategy
-    if second_strategy_returns:
-        for delay, returns in second_strategy_returns.items():
+    if second_strategy_results:
+        for delay, returns in second_strategy_results.items():
             print(f"\n{delay}d Delay Secondary Strategy:\n", evaluate_performance(returns))
 
 
@@ -26,3 +26,23 @@ def bl_evaluation_comparison(strategy_returns: dict, assets, second_strategy_ret
 
     print("\nBuy & Hold:\n", evaluate_performance(baseline_returns[0]))
     print("\nEqual Weighted:\n", evaluate_performance(baseline_returns[1]))
+
+# Returns dictionary containing strategies and baselines with respective returns
+def total_results_dict(assets, strategy_results: dict, second_strategy_results: dict = None):
+    # Dictionary of labels and return data
+    returns_dict = {}
+
+    # Loop through each delay scenario of the strategy results dict
+    for delay, returns in strategy_results.items():
+        label = f"{delay}d Delay Primary Strategy"
+        returns_dict[label] = returns
+
+    # Allows evaluating an optional second strategy
+    if second_strategy_results:
+        for delay, returns in second_strategy_results.items():
+            label = f"{delay}d Delay Secondary Strategy"
+            returns_dict[label] = returns
+
+    # For comparison     
+    returns_dict["Buy & Hold"] = get_base_line_returns(assets)[0]
+    returns_dict["Equal Weighted"] = get_base_line_returns(assets)[1]
