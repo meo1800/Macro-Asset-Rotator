@@ -1,7 +1,7 @@
 import pandas as pd
 from utils.slippage import apply_slippage
 
-# Incorporates simulated alpha decay and slippage 
+# Incorporates simulated alpha decay and slippage returning a dictionary with returns of each delay scenario
 def generate_rotation_strategy(assets, window = 21, max_delay = 3):
 
     print("\nGenerating strategy...\n")
