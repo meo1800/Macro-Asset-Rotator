@@ -10,7 +10,7 @@ def get_base_line_returns(assets):
     return baseline_returns
 
 # Evaluates performance of the strategy with each delay scenario with comparison to baseline returns
-def bl_evaluation_comparison(assets, strategy_results: dict, second_strategy_results: dict = None):
+def bl_evaluation_comparison(assets, strategy_results: dict, second_strategy_results: dict = None, third_strategy_results:dict = None):
     
     # Iterates through each delay scenario and evaluates
     for delay, returns in strategy_results.items():
@@ -21,6 +21,11 @@ def bl_evaluation_comparison(assets, strategy_results: dict, second_strategy_res
         for delay, returns in second_strategy_results.items():
             print(f"\n{delay}d Delay Secondary Strategy:\n", evaluate_performance(returns))
 
+    # Allows evaluating an optional third strategy
+    if third_strategy_results:
+        for delay, returns in third_strategy_results.items():
+            print(f"\n{delay}d Delay Tertiary Strategy:\n", evaluate_performance(returns))
+
 
     baseline_returns = get_base_line_returns(assets)
 
@@ -28,7 +33,7 @@ def bl_evaluation_comparison(assets, strategy_results: dict, second_strategy_res
     print("\nEqual Weighted:\n", evaluate_performance(baseline_returns[1]))
 
 # Returns dictionary containing strategies and baselines with respective returns
-def total_results_dict(assets, strategy_results: dict, second_strategy_results: dict = None):
+def total_results_dict(assets, strategy_results: dict, second_strategy_results: dict = None, third_strategy_results:dict = None):
     # Dictionary of labels and return data
     results_dict = {}
 
@@ -40,6 +45,12 @@ def total_results_dict(assets, strategy_results: dict, second_strategy_results: 
     # Allows evaluating an optional second strategy
     if second_strategy_results:
         for delay, returns in second_strategy_results.items():
+            label = f"{delay}d Delay Secondary Strategy"
+            results_dict[label] = returns
+
+        # Allows evaluating an optional second strategy
+    if third_strategy_results:
+        for delay, returns in third_strategy_results.items():
             label = f"{delay}d Delay Secondary Strategy"
             results_dict[label] = returns
 
