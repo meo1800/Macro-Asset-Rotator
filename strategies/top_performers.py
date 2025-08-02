@@ -26,8 +26,8 @@ def genereate_top_performers_strategy(assets, window = 21, top_n = 2, max_delay 
         
         returns = []
 
-        for date, weight in shifted_signal.items():
-            returns.append(daily_returns * signal).sum(axis = 1)
+        for date, weight in shifted_signal.iterrows():
+            returns.append((daily_returns.loc[date] * weight).sum())
 
         strategy_returns = pd.Series(returns, index = shifted_signal.index)
         results[delay] = strategy_returns
