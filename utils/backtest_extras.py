@@ -51,7 +51,7 @@ def total_results_dict(assets, strategy_results: dict, second_strategy_results: 
         # Allows evaluating an optional second strategy
     if third_strategy_results:
         for delay, returns in third_strategy_results.items():
-            label = f"{delay}d Delay Secondary Strategy"
+            label = f"{delay}d Delay Tertiary Strategy"
             results_dict[label] = returns
 
     # For comparison     
