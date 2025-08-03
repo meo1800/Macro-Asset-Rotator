@@ -60,6 +60,11 @@ def bl_evaluation_comparison(assets, strategy_results: dict, second_strategy_res
         **evaluate_performance(baseline_returns[1]).to_dict()
     })
 
+    # Creates a Metrics Summary DF and updates it to a CSV 
+    summary_df = pd.DataFrame(summary_data)
+    summary_df.to_csv("outputs/strategy_summary.csv", index=False)
+    print("\nSummary saved to outputs/strategy_summary.csv")
+
 # Returns dictionary containing strategies and baselines with respective returns
 def total_results_dict(assets, strategy_results: dict, second_strategy_results: dict = None, third_strategy_results:dict = None):
     # Dictionary of labels and return data
