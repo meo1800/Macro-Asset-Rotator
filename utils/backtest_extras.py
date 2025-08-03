@@ -12,25 +12,53 @@ def get_base_line_returns(assets):
 # Evaluates performance of the strategy with each delay scenario with comparison to baseline returns
 def bl_evaluation_comparison(assets, strategy_results: dict, second_strategy_results: dict = None, third_strategy_results:dict = None):
     
+    summary_data = []
+
     # Iterates through each delay scenario and evaluates
     for delay, returns in strategy_results.items():
-        print(f"\n{delay}d Delay Primary Strategy:\n", evaluate_performance(returns))
+        metrics = evaluate_performance(returns)
+        summary_data.append({
+            "Strategy": "Primary Strategy",
+            "Delay": delay,
+            **metrics.to_dict()
+        })
 
     # Allows evaluating an optional second strategy
     if second_strategy_results:
         for delay, returns in second_strategy_results.items():
-            print(f"\n{delay}d Delay Secondary Strategy:\n", evaluate_performance(returns))
+            metrics = evaluate_performance(returns)
+            summary_data.append({
+                "Strategy": "Secondary Strategy",
+                "Delay": delay,
+                **metrics.to_dict()
+            })
 
     # Allows evaluating an optional third strategy
     if third_strategy_results:
         for delay, returns in third_strategy_results.items():
-            print(f"\n{delay}d Delay Tertiary Strategy:\n", evaluate_performance(returns))
-
+            metrics = evaluate_performance(returns)
+            summary_data.append({
+                "Strategy": "Tertiary Strategy",
+                "Delay": delay,
+                **metrics.to_dict()
+            })
 
     baseline_returns = get_base_line_returns(assets)
 
-    print("\nBuy & Hold:\n", evaluate_performance(baseline_returns[0]))
-    print("\nEqual Weighted:\n", evaluate_performance(baseline_returns[1]))
+    # Appends Buy and Hold metrics to summary
+    summary_data.append({
+        "Strategy": "Buy and Hold",
+        "Delay": 0,
+        **evaluate_performance(baseline_returns[0]).to_dict()
+    })
+
+
+    # Appends Equal Weighted Portfolio metrics to summary
+    summary_data.append({
+        "Strategy": "Equal Weighted",
+        "Delay": 0,
+        **evaluate_performance(baseline_returns[1]).to_dict()
+    })
 
 # Returns dictionary containing strategies and baselines with respective returns
 def total_results_dict(assets, strategy_results: dict, second_strategy_results: dict = None, third_strategy_results:dict = None):
