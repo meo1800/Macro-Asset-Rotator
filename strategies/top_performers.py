@@ -22,7 +22,7 @@ def genereate_top_performers_strategy(assets, window = 21, top_n = 2, max_delay 
         top_performers = (ranked <= top_n)
         # Keep only positive momentum values for weighting
         top_n_momentum = momentum.where(top_performers & (momentum > 0), 0.0)
-        # Sum only positive momentum to normalize weights; ignore days with no positive momentum
+        # Sum only positive momentum to normalize weights and ignore days with no positive momentum
         row_sums = top_n_momentum.sum(axis=1).where(lambda x: x > 0, np.nan)
         signal = top_n_momentum.div(row_sums, axis=0).fillna(0)
         
